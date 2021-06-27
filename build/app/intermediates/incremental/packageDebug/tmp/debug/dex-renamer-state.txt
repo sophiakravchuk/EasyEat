@@ -1,4 +1,4 @@
-#Sat Jun 26 23:10:33 EEST 2021
-base.0=/home/julia/StudioProjects/EasyEat/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Sun Jun 27 19:27:22 EEST 2021
+base.0=D\:\\Solja\\ucu\\ThirdGrade\\flutter\\project_git\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

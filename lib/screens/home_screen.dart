@@ -1,4 +1,5 @@
 import 'package:EasyEat/screens/top_bar.dart';
+import 'package:EasyEat/services/recipe_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -142,7 +143,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  void _onAddButton() {
+  Future<void> _onAddButton() async {
+    String id = '660261';
+    RecipeInstructions instr = await ApiService.instance.getRecipeSteps(id);
+
+    print(instr.ings[0].name);
+    print(instr.steps[0]);
+
+
+
     print("ADD");
   }
 
@@ -238,11 +247,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ]);
 
   void _onSearchButton() async {
-    List<String> ingredients = ['apples', 'flour', 'sugar'];
+    List<String> ingredients = ['apples', 'patata', 'sugar'];
     List<Meal> meals = await ApiService.instance.fetchRecipe(ingredients, 2);
-    // for(var meal in meals){
-    //   print(meal.id.toString());
-    // }
+    for(var meal in meals){
+      print(meal.id.toString());
+    }
   }
 
   Widget _searchButton() => Container(

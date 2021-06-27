@@ -1,11 +1,17 @@
+import 'package:EasyEat/services/recipe_parser.dart';
+
 class Meal {
   final int id;
   final String title, imgURL;
+  List<dynamic> ingredients;
+  RecipeInstructions stepsRecipe;
 
   Meal({
     this.id,
     this.title,
-    this.imgURL
+    this.imgURL,
+    this.ingredients,
+    this.stepsRecipe
   });
 
 //This class has an ID which allows us to get the Recipes and other info
