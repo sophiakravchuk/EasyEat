@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  shared_preferences: any
   flutter_screenutil: ^3.1.1
   intl: ^0.15.6
   google_fonts: ^1.1.0
@@ -51,6 +52,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/example.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,4 +1,4 @@
-import 'package:EasyEat/screens/home_screen.dart';
+import 'package:EasyEat/widgets/tabsbar.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,14 +6,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'EasyEat',
-      home: Builder(
-          builder: (context) => HomeScreen()
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: TabsPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
