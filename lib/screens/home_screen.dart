@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ScreenUtil.init(context,
         designSize: DesignConfiguration.size, allowFontScaling: true);
     return Scaffold(
-      appBar: TopBar().build(context),
+      appBar: TopBarHome().build(context),
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -249,14 +249,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onSearchButton() async {
-    List<String> ingredients = ['apples', 'patata', 'sugar'];
     List<Meal> meals = await ApiService.instance.fetchRecipe(ingredients, 2);
-    for (var meal in meals) {
-      print(meal.id.toString());
-    }
 
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => RecipesPage(meals: meals)));
+        MaterialPageRoute(builder: (context) => RecipesPage(meals: meals))).then((_) {
+      setState(() {});
+    });
   }
 
   Widget _searchButton() => Container(

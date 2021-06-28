@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:EasyEat/screens/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'meal_model.dart';
 import 'recipe_parser.dart';
@@ -7,6 +8,7 @@ import 'recipe_parser.dart';
 class ApiService {
   ApiService._instantiate();
   static final ApiService instance = ApiService._instantiate();
+  LocalStorage storage = LocalStorage();
 
   final String _baseURL = "https://api.spoonacular.com";
   static const String API_KEY = "457144eca6094d16b3faae224a781520";
@@ -43,8 +45,13 @@ class ApiService {
     List<dynamic> dataList = await makeResponse(params);
     List<Meal> meals = [];
     for(var data_item in dataList) {
-      Meal meal = Meal.fromMap(data_item);
-      meals.add(meal);
+      if (storage.getAllKeys().contains(data_item["id"].toString())) {
+        meals.add(Meal.fromMapForPref(jsonDecode(storage.getByKey(data_item["id"].toString()))));
+    }
+      else {
+        Meal meal = Meal.fromMap(data_item);
+        meals.add(meal);
+      }
     }
     return meals;
   }

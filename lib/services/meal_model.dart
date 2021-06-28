@@ -28,13 +28,24 @@ values of the meal, and returns the Meal Object
     return Meal(
       id: map['id'],
       title: map['title'],
-      imgURL: 'https://spoonacular.com/recipeImages/' + map['image'],
+      imgURL: map['image'],
+    );
+  }
+
+  factory Meal.fromMapForPref(Map<String, dynamic> map) {
+    //Meal object
+    return Meal(
+      id: map['id'],
+      title: map['title'],
+      imgURL: map['image'],
+      isFavourite: map['isFavourite'],
     );
   }
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
-        'imgURL': imgURL,
+        'image': imgURL,
+        'isFavourite': isFavourite,
       };
 }
