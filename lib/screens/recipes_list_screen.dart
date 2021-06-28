@@ -3,10 +3,15 @@ import 'dart:convert';
 import 'package:EasyEat/screens/constants.dart';
 import 'package:EasyEat/screens/shared_preferences.dart';
 import 'package:EasyEat/screens/top_bar.dart';
+import 'package:EasyEat/services/meal_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecipesPage extends StatefulWidget {
+  final List<Meal> meals;
+
+  RecipesPage({Key key, this.meals}) : super(key: key);
+
   @override
   _RecipesPageState createState() => _RecipesPageState();
 }
@@ -18,20 +23,29 @@ class _RecipesPageState extends State<RecipesPage> {
   LocalStorage storage;
 
   // Fetch content from the json file
-  Future<void> readJson() async {
-    final String response = await rootBundle.loadString('assets/example.json');
-    final data = await json.decode(response);
-    setState(() {
-      _items = data;
-      _colors = List.filled(_items.length, EasyEatColors.grey);
-    });
-  }
+  // Future<void> readJson() async {
+  //   final String response = await rootBundle.loadString('assets/example.json');
+  //   final data = await json.decode(response);
+  //   setState(() {
+  //     _items = data;
+  //     _colors = List.filled(_items.length, EasyEatColors.grey);
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    this.readJson();
+    // this.readJson();
+    this.listIngr();
     initial();
+  }
+
+  // Fetch content from the json file
+  Future<void> listIngr() async {
+    setState(() {
+      _items = widget.meals;
+      _colors = List.filled(_items.length, EasyEatColors.grey);
+    });
   }
 
   void initial() async {
@@ -42,32 +56,32 @@ class _RecipesPageState extends State<RecipesPage> {
     return new Scaffold(
       appBar: TopBar().build(context),
       body: new ListView.builder(
-        itemCount: _items == null ? 0 : _items.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemCount: _items.length,
+        itemBuilder: (_, int index) {
           return Card(
               child: Column(children: <Widget>[
             ListTile(
-                leading: Image.network(_items[index]["image"]),
-                title: Text(_items[index]["title"]),
-                subtitle: Text(_items[index]["title"]),
+                leading: Image.network(_items[index].imgURL),
+                title: Text(_items[index].title,
+                    style: EasyEatTextStyle(
+                      fontSize: 22,
+                      textColor: EasyEatColors.darkGreen,
+                    ).style()),
                 trailing: IconButton(
                   icon: Icon(Icons.favorite),
-                  color: _colors[index],
+                  color: _items[index].isFavourite
+                      ? EasyEatColors.orange
+                      : EasyEatColors.grey,
                   onPressed: () {
                     setState(() {
-                      if (_colors[index] == EasyEatColors.grey) {
-                        _colors[index] = EasyEatColors.orange;
-                        storage.setRecipe(_items[index]["id"].toString(),
-                            json.encode(_items[index]));
-
-                        print(_items[index]["id"].toString());
+                      _items[index].isFavourite = !_items[index].isFavourite;
+                      if (_items[index].isFavourite) {
+                        storage.setRecipe(_items[index].id.toString(),
+                            jsonEncode(_items[index].toJson()));
                       } else {
-                        _colors[index] = EasyEatColors.grey;
-                        storage.removeRecipe(_items[index]["id"].toString());
+                        storage.removeRecipe(_items[index].id.toString());
                       }
                     });
-                    print("Favorite");
-                    print(_items[index]["title"]);
                   },
                 ),
                 onTap: () {

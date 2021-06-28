@@ -31,11 +31,13 @@ class _FavouritePageState extends State<FavouritePage> {
         .map<Widget>((key) => Card(
                 child: ListTile(
               leading:
-                  Image.network(json.decode(storage.getByKey(key))["image"]),
+                  Image.network(json.decode(storage.getByKey(key))["imgURL"]),
               title:
-                  Text(json.decode(storage.getByKey(key))["title"].toString()),
-              subtitle:
-                  Text(json.decode(storage.getByKey(key))["title"].toString()),
+                  Text(json.decode(storage.getByKey(key))["title"].toString(),
+                      style: EasyEatTextStyle(
+                        fontSize: 22,
+                        textColor: EasyEatColors.darkGreen,
+                      ).style()),
               trailing: IconButton(
                 icon: Icon(Icons.delete),
                 color: EasyEatColors.grey,
@@ -45,6 +47,9 @@ class _FavouritePageState extends State<FavouritePage> {
                   });
                 },
               ),
+              onTap: () {
+                print("TAPPED");
+              },
             )))
         .toList();
   }

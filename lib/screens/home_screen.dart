@@ -1,3 +1,4 @@
+import 'package:EasyEat/screens/recipes_list_screen.dart';
 import 'package:EasyEat/screens/top_bar.dart';
 import 'package:EasyEat/services/recipe_parser.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:EasyEat/screens/warning_dialog.dart';
 
 import 'constants.dart';
 
-
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomeScreenState();
@@ -18,9 +18,7 @@ class HomeScreen extends StatefulWidget {
   HomeScreen();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
-
   TextEditingController _searchController = TextEditingController();
   List<String> ingredients = [];
 
@@ -34,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
         designSize: DesignConfiguration.size, allowFontScaling: true);
     return Scaffold(
       appBar: TopBar().build(context),
-
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -44,45 +41,43 @@ class _HomeScreenState extends State<HomeScreen> {
               length: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 28),
-                child: ListView(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      _topText(context),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      _search(context),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      _addButton(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        height: 269,
-                      child: ListView.separated(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                  separatorBuilder: (context, index) =>
-                      SizedBox(
-                        width: 1,
-                      ),
-                  itemCount: 1,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return _ingredientsList();
-                  }),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      _searchButton(),
-                      SizedBox(
-                        height: 15,
-                      ),
-                    ]),
+                child: ListView(children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _topText(context),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _search(context),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  _addButton(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 269,
+                    child: ListView.separated(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        separatorBuilder: (context, index) => SizedBox(
+                              width: 1,
+                            ),
+                        itemCount: 1,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return _ingredientsList();
+                        }),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  _searchButton(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ]),
               ),
             );
           }),
@@ -91,54 +86,49 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _topText(BuildContext context) =>
-      Row(
+  Widget _topText(BuildContext context) => Row(
         children: <Widget>[
           Padding(
             padding: EdgeInsets.fromLTRB(50, 18, 18, 18),
             child: Center(
-              child: Image.asset(
-                  'assets/images/ingredients.png'),
+              child: Image.asset('assets/images/ingredients.png'),
             ),
           ),
-          Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.center,
-                  // child: Padding(
-                  // padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    child: Text(
-                      "Add Your",
-                      style: EasyEatTextStyle(
-                        fontSize: 28,
-                        textColor: EasyEatColors.black,
-                      ).style(),
-                    ),
-                  ),
+          Column(children: <Widget>[
+            Align(
+              alignment: Alignment.center,
+              // child: Padding(
+              // padding: EdgeInsets.symmetric(horizontal: 25),
+              child: Container(
+                child: Text(
+                  "Add Your",
+                  style: EasyEatTextStyle(
+                    fontSize: 28,
+                    textColor: EasyEatColors.black,
+                  ).style(),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  // child: Padding(
-                  // padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    child: Text(
-                      "Ingredients",
-                      style: EasyEatTextStyle(
-                        fontSize: 28,
-                        textColor: EasyEatColors.black,
-                      ).style(),
-                    ),
-                  ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              // child: Padding(
+              // padding: EdgeInsets.symmetric(horizontal: 25),
+              child: Container(
+                child: Text(
+                  "Ingredients",
+                  style: EasyEatTextStyle(
+                    fontSize: 28,
+                    textColor: EasyEatColors.black,
+                  ).style(),
                 ),
-              ]
-          ),
+              ),
+            ),
+          ]),
           // ),
         ],
       );
 
-  Widget _search(BuildContext context) =>
-      Container(
+  Widget _search(BuildContext context) => Container(
         width: double.infinity,
         decoration: BoxDecoration(
           color: EasyEatColors.grey,
@@ -174,7 +164,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-
   void _onAddButton() {
     setState(() {
       ingredients.add(_searchController.text);
@@ -189,8 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print("REMOVE");
   }
 
-  Widget _addButton() =>
-      Container(
+  Widget _addButton() => Container(
         padding: EdgeInsets.only(top: 5),
         width: double.infinity,
         child: ElevatedButton(
@@ -213,55 +201,48 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-
-
   Widget _ingredientsList() {
     List<Column> list = new List<Column>();
     for (var i = 0; i < ingredients.length; i++) {
-      list.add(Column(
-          children: <Widget>[
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 15),
-                    child: Text(
-                      ingredients[i],
-                      style: EasyEatTextStyle(
-                        fontSize: 22,
-                        textColor: EasyEatColors.darkGreen,
-                      ).style(),
-                    ),
+      list.add(
+        Column(children: <Widget>[
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Text(
+                    ingredients[i],
+                    style: EasyEatTextStyle(
+                      fontSize: 22,
+                      textColor: EasyEatColors.darkGreen,
+                    ).style(),
                   ),
-
-
-                  Padding(
-                    padding: EdgeInsets.only(right: 15),
-                    child: GestureDetector(
-                      onTap: () => _onRemoveButton(i),
-                      child: Container(
-                        width: 23,
-                        height: 23,
-                        decoration: BoxDecoration(
-                            color: EasyEatColors.lightGreen,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: EasyEatColors.darkGreen)),
-                        child: Icon(
-                          Icons.remove,
-                          size: 15,
-                          color: EasyEatColors.darkGreen,
-                        ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 15),
+                  child: GestureDetector(
+                    onTap: () => _onRemoveButton(i),
+                    child: Container(
+                      width: 23,
+                      height: 23,
+                      decoration: BoxDecoration(
+                          color: EasyEatColors.lightGreen,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: EasyEatColors.darkGreen)),
+                      child: Icon(
+                        Icons.remove,
+                        size: 15,
+                        color: EasyEatColors.darkGreen,
                       ),
                     ),
                   ),
-                ]
-            ),
-            SizedBox(
-              height: 10,
-            ),
-          ]
-      ),
+                ),
+              ]),
+          SizedBox(
+            height: 10,
+          ),
+        ]),
       );
     }
     return new Column(children: list);
@@ -270,39 +251,38 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onSearchButton() async {
     List<String> ingredients = ['apples', 'patata', 'sugar'];
     List<Meal> meals = await ApiService.instance.fetchRecipe(ingredients, 2);
-    for(var meal in meals){
+    for (var meal in meals) {
       print(meal.id.toString());
     }
+
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => RecipesPage(meals: meals)));
   }
 
-
-  Widget _searchButton() =>
-      Container(
-  margin: const EdgeInsets.only(left: 60, right: 60),
-      child:
-      RawMaterialButton(
-        onPressed: () => ingredients.isEmpty ? showDialog(context: context,
-            builder: (BuildContext context){
-              return WarningDialog();
-            }) : _onSearchButton(),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+  Widget _searchButton() => Container(
+        margin: const EdgeInsets.only(left: 60, right: 60),
+        child: RawMaterialButton(
+          onPressed: () => ingredients.isEmpty
+              ? showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return WarningDialog();
+                  })
+              : _onSearchButton(),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          fillColor: EasyEatColors.darkGreen,
+          padding: EdgeInsets.only(top: 10, bottom: 10),
+          child: Text(
+            "Search",
+            style: EasyEatTextStyle(
+              fontSize: 22,
+              textColor: EasyEatColors.white,
+            ).style(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-        fillColor: EasyEatColors.darkGreen,
-        padding: EdgeInsets.only(top: 10, bottom: 10),
-        child: Text(
-          "Search",
-          style: EasyEatTextStyle(
-            fontSize: 22,
-            textColor: EasyEatColors.white,
-          ).style(),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
       );
-
-
 }
-
-

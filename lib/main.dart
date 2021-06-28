@@ -10,11 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'EasyEat',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: TabsPage(),
+      home: TabsBarScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

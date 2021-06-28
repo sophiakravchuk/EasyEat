@@ -5,14 +5,15 @@ class Meal {
   final String title, imgURL;
   List<dynamic> ingredients;
   RecipeInstructions stepsRecipe;
+  bool isFavourite;
 
-  Meal({
-    this.id,
-    this.title,
-    this.imgURL,
-    this.ingredients,
-    this.stepsRecipe
-  });
+  Meal(
+      {this.id,
+      this.title,
+      this.imgURL,
+      this.ingredients,
+      this.stepsRecipe,
+      this.isFavourite = false});
 
 //This class has an ID which allows us to get the Recipes and other info
 //Such as title and Image URL
@@ -30,4 +31,10 @@ values of the meal, and returns the Meal Object
       imgURL: 'https://spoonacular.com/recipeImages/' + map['image'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'imgURL': imgURL,
+      };
 }
