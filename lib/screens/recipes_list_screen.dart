@@ -8,10 +8,9 @@ import 'package:EasyEat/services/api_services.dart';
 import 'package:EasyEat/services/meal_model.dart';
 import 'package:EasyEat/services/recipe_parser.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class RecipesPage extends StatefulWidget {
-  final List<Meal> meals;
+  List<Meal> meals;
 
   RecipesPage({Key key, this.meals}) : super(key: key);
 
@@ -21,33 +20,19 @@ class RecipesPage extends StatefulWidget {
 
 class _RecipesPageState extends State<RecipesPage> {
   List _items = [];
-  List<Color> _colors = [];
 
   LocalStorage storage;
-
-  // Fetch content from the json file
-  // Future<void> readJson() async {
-  //   final String response = await rootBundle.loadString('assets/example.json');
-  //   final data = await json.decode(response);
-  //   setState(() {
-  //     _items = data;
-  //     _colors = List.filled(_items.length, EasyEatColors.grey);
-  //   });
-  // }
 
   @override
   void initState() {
     super.initState();
-    // this.readJson();
     this.listIngr();
     initial();
   }
 
-  // Fetch content from the json file
   Future<void> listIngr() async {
     setState(() {
       _items = widget.meals;
-      _colors = List.filled(_items.length, EasyEatColors.grey);
     });
   }
 
@@ -55,7 +40,18 @@ class _RecipesPageState extends State<RecipesPage> {
     storage = LocalStorage();
   }
 
+  void _refresh() {
+    for (var i = 0; i < widget.meals.length; i++) {
+      if (widget.meals[i].isFavourite) {
+        if (!storage.getAllKeys().contains(widget.meals[i].id.toString())) {
+          widget.meals[i].isFavourite = !widget.meals[i].isFavourite;
+        }
+      }
+    }
+  }
+
   Widget build(BuildContext context) {
+    _refresh();
     return new Scaffold(
       appBar: TopBar().build(context),
       body: new ListView.builder(
@@ -98,7 +94,9 @@ class _RecipesPageState extends State<RecipesPage> {
                             RecipePage(_items[index], instructions),
                       ),
                       ).then((_) {
-                        setState(() {});
+                        setState(() {
+                          _refresh();
+                        });
                       });
                     }),
               ]));

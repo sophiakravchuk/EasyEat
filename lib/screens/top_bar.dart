@@ -1,5 +1,4 @@
 import 'package:EasyEat/screens/home_screen.dart';
-import 'package:EasyEat/widgets/tabsbar.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';

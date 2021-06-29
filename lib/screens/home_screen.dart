@@ -1,9 +1,7 @@
 import 'package:EasyEat/screens/recipes_list_screen.dart';
 import 'package:EasyEat/screens/top_bar.dart';
-import 'package:EasyEat/services/recipe_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_screenutil/screenutil.dart';
 import '../services/api_services.dart';
 import '../services/meal_model.dart';
@@ -249,11 +247,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onSearchButton() async {
-    List<Meal> meals = await ApiService.instance.fetchRecipe(ingredients, 2);
+    List<Meal> meals = await ApiService.instance.fetchRecipe(ingredients, 10);
 
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => RecipesPage(meals: meals))).then((_) {
-      setState(() {});
+      setState(() {
+        ingredients = [];
+      });
     });
   }
 

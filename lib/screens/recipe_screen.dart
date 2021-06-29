@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:EasyEat/screens/constants.dart';
 import 'package:EasyEat/screens/shared_preferences.dart';
 import 'package:EasyEat/screens/top_bar.dart';
-import 'package:EasyEat/services/api_services.dart';
 import 'package:EasyEat/services/meal_model.dart';
 import 'package:EasyEat/services/recipe_parser.dart';
 import 'package:flutter/material.dart';
