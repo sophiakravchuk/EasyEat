@@ -2,10 +2,13 @@ Name: EasyEat
 
 Team:
 
-Julia Pochynok
-Olena Matrunych
-Sofiya Haletska
-Sophia Kravchuk
+Julia Pochynok 
+
+Olena Matrunych 
+
+Sofiya Haletska 
+
+Sophia Kravchuk 
 
 Main idea:
 
