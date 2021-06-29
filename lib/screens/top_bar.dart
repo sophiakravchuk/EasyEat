@@ -58,10 +58,6 @@ class TopBarHome {
         leading: Text(" "),
         actions: <Widget>[
           TextButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HomeScreen()));
-              },
               child: Text(
                 "EasyEat",
                 style: EasyEatTextStyle(
@@ -74,10 +70,6 @@ class TopBarHome {
           // child:
 
           GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => HomeScreen()));
-            },
             child: Image.asset('assets/images/logo_white.png', scale: 12,),
           ),
         ],
