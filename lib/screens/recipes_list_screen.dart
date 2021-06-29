@@ -54,7 +54,22 @@ class _RecipesPageState extends State<RecipesPage> {
     _refresh();
     return new Scaffold(
       appBar: TopBar().build(context),
-      body: new ListView.builder(
+      body: widget.meals.isEmpty ?
+      Align(
+        alignment: Alignment.center,
+        // child: Padding(
+        // padding: EdgeInsets.symmetric(horizontal: 25),
+        child: Container(
+          child: Text(
+            "  No suitable\nresults found :(",
+            style: EasyEatTextStyle(
+              fontSize: 28,
+              textColor: EasyEatColors.darkGreen,
+            ).style(),
+          ),
+        ),
+      ) :
+      new ListView.builder(
         itemCount: _items.length,
         itemBuilder: (_, int index) {
           return Card(
@@ -106,7 +121,8 @@ class _RecipesPageState extends State<RecipesPage> {
   }
 
   Future<RecipeInstructions> _getInstructions(int index) async {
-    RecipeInstructions recipeInstructions = await ApiService.instance.getRecipeSteps(_items[index].id.toString());
+    RecipeInstructions recipeInstructions = await ApiService.instance
+        .getRecipeSteps(_items[index].id.toString());
     return recipeInstructions;
   }
 
